@@ -1,6 +1,7 @@
 import '../pages/index.css';
-import {initialCards, createCard, removeCard, PlaceLike} from './cards.js';
-import {OpenPopup, ClosePopup, OpenImg, handleEsc, handleClick} from './modal.js';
+import { initialCards } from './cards.js';
+import {createCard, removeCard, placeLike} from './card.js';
+import {openPopup, closePopup} from './modal.js';
 
 // @todo: Темплейт карточки
 export const cardTemplate = document.querySelector('#card-template').content;
@@ -9,15 +10,10 @@ export const cardTemplate = document.querySelector('#card-template').content;
 const content = document.querySelector('.content');
 const placelist = content.querySelector('.places__list');
 
-// Слушаем события ESC и клик
-
-document.addEventListener('keydown', handleEsc);
-document.addEventListener('click', handleClick);
-
 // редактирования профайла
     const editbutton = content.querySelector('.profile__edit-button');
     const profileTitle = content.querySelector('.profile__title');
-    const profileDescription = content.querySelector('.profile__description');
+    const profileDescriptionText = content.querySelector('.profile__description');
     const editpopup = document.querySelector('.popup_type_edit');
    
     const popupInputName = editpopup.querySelector('.popup__input_type_name');
@@ -26,9 +22,9 @@ document.addEventListener('click', handleClick);
 
     editbutton.addEventListener('click', function (evt) {
         popupInputName.value = profileTitle.textContent;
-        popupInputDescription.value = profileDescription.textContent;
+        popupInputDescription.value = profileDescriptionText.textContent;
 
-        OpenPopup(editpopup);
+        openPopup(editpopup);
     });
 
 // добавление места
@@ -37,52 +33,60 @@ const addbutton = content.querySelector('.profile__add-button');
 const addpopup = document.querySelector('.popup_type_new-card');
 
 addbutton.addEventListener('click', function (evt) {
-    OpenPopup(addpopup);
+    openPopup(addpopup);
 })
 
 // сохранить данные профайла
 
-function SaveProfile (Name, Description) {
-    profileTitle.textContent = Name;
-    profileDescription.textContent = Description;
+function saveProfile (name, description) {
+    profileTitle.textContent = name;
+    profileDescription.textContent = description;
 }
 
-const FormProfile = document.forms.editprofile;
-const ProfileName = FormProfile.elements.name;
-const ProfileDescription = FormProfile.elements.description;
+const formProfile = document.forms.editprofile;
+const profileName = formProfile.elements.name;
+const profileDescription = formProfile.elements.description;
 
-
- FormProfile.addEventListener('submit', function (evt) {
+ formProfile.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    SaveProfile(ProfileName.value, ProfileDescription.value);
-    FormProfile.reset();
-    ClosePopup(editpopup);
+    saveProfile(profileName.value, profileDescription.value);
+    closePopup(editpopup);
  })
 
 //  добавить карточку через +
 
-const FormPlace = document.forms.newplace;
-const Place = FormPlace.elements.placename;
-const PlaceLink = FormPlace.elements.link;
+const formPlace = document.forms.newplace;
+const place = formPlace.elements.placename;
+const placeLink = formPlace.elements.link;
 
-FormPlace.addEventListener('submit', function (evt) {
+formPlace.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    const item = {name:Place.value, link:PlaceLink.value}
-    const newcard = createCard(item, removeCard, PlaceLike);
+    const item = {name:place.value, link:placeLink.value}
+    const newcard = createCard(item, removeCard, placeLike);
     placelist.prepend(newcard);
-    FormPlace.reset();
-    ClosePopup(addpopup);
+    formPlace.reset();
+    closePopup(addpopup);
 })
 
-// отслеживаем клик по картинке
+// открыть картинку
 
-placelist.addEventListener('click', OpenImg);
+export function openImg (cardimage) {
+    const imagePopup = document.querySelector('.popup_type_image');
+    const popupImg = imagePopup.querySelector('.popup__image');
+    const popupText = imagePopup.querySelector('.popup__caption');
+        
+    popupImg.src = cardimage.src;
+    popupImg.alt = cardimage.alt;
+    popupText.textContent = cardimage.alt;
+  
+    openPopup(imagePopup);
+  }
 
 // Вывести карточки на страницу
 
  initialCards.forEach(function (item) {
 
-    const newcard = createCard(item, removeCard, PlaceLike);
+    const newcard = createCard(item, removeCard, placeLike, openImg);
 
     placelist.append(newcard); 
  });
