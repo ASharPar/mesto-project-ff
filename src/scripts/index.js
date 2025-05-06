@@ -179,39 +179,18 @@ formElement.addEventListener('submit', function (evt) {
 enableValidation(validationConfig);
 
 
-//Получаем Профайл с сервера
-getProfile()
-  .then((data) => {
-    saveProfile(data.name, data.about);
-    profileID = data._id;
+// Получаем данные для загрузки сайта
+Promise.all([getInitialCards(), getProfile()])
+  .then(([cards, profile]) => {
+    saveProfile(profile.name, profile.about);
+    profileID = profile._id;
+
+    cards.forEach(function (item) {
+      const newcard = createCard(item, removeCard, placeLike, openImg, profileID);
+      
+      placelist.append(newcard);
+    });
   })
   .catch((err) => {
     console.log(err); // выводим ошибку в консоль
 });
-
-
-// Получаем карточки с сервера
-getInitialCards()
-  .then((result) => {  
-  result.forEach(function (item) {
-    const newcard = createCard(item, removeCard, placeLike, openImg, profileID);
-    
-    placelist.append(newcard); 
-  });
-})
-
-// Получаем данные для загрузки сайта
-//Promise.all([getInitialCards(), getProfile()])
-//  .then(([cards, profile]) => {
-//    saveProfile(profile.name, profile.about);
-//    profileID = profile._id;
-
-//    cards.forEach(function (item) {
-//      const newcard = createCard(item, removeCard, placeLike, openImg, profileID);
-      
-//      placelist.append(newcard);
-//    });
-//  })
-//  .catch((err) => {
-//    console.log(err); // выводим ошибку в консоль
-//});
