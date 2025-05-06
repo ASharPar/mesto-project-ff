@@ -36,9 +36,11 @@
     <div class="popup__content">
       <button type="button" class="popup__close"></button>
       <h3 class="popup__title">Редактировать профиль</h3>
-      <form class="popup__form" name="editprofile">
-        <input type="text" name="name" class="popup__input popup__input_type_name" placeholder="Имя" required>
-        <input type="text" name="description" class="popup__input popup__input_type_description" placeholder="Занятие" required>
+      <form class="popup__form" name="editprofile" novalidate>
+        <input type="text" name="name" id="profilename" class="popup__input popup__input_type_name" placeholder="Имя" minlength="2" maxlength="40" pattern="^[a-zA-Zа-яёА-ЯЁ \-]+$" data-error-message="Разрешены латинские буквы, кириллица, пробел и дефис" required>
+        <span class="popup__form-error profilename-error"></span> 
+        <input type="text" name="description" id="profiledescription" class="popup__input popup__input_type_description" placeholder="Занятие" minlength="2" maxlength="200" pattern="^[a-zA-Zа-яёА-ЯЁ \-]+$" data-error-message="Разрешены латинские буквы, кириллица, пробел и дефис" required>
+        <span class="popup__form-error profiledescription-error"></span> 
         <button type="submit" class="button popup__button">Сохранить</button>
       </form>
     </div>
@@ -48,8 +50,10 @@
       <button type="button" class="popup__close"></button>
       <h3 class="popup__title">Новое место</h3>
       <form class="popup__form" name="newplace">
-        <input type="text" name="placename" class="popup__input popup__input_type_card-name" placeholder="Название" required>
-        <input type="url" name="link" class="popup__input popup__input_type_url" placeholder="Ссылка на картинку" required>
+        <input type="text" name="placename" id="placename" class="popup__input popup__input_type_card-name" placeholder="Название" minlength="2" maxlength="30" pattern="^[a-zA-Zа-яёА-ЯЁ \-]+$" data-error-message="Разрешены латинские буквы, кириллица, пробел и дефис" required>
+        <span class="popup__form-error placename-error"></span> 
+        <input type="url" name="link" id="link" class="popup__input popup__input_type_url" placeholder="Ссылка на картинку" required>
+        <span class="popup__form-error link-error"></span> 
         <button type="submit" class="button popup__button">Сохранить</button>
       </form>
     </div>
@@ -62,6 +66,17 @@
     </div>
   </div>
 </div>
+<div class="popup popup_type_avatar popup_is-animated">
+  <div class="popup__content">
+    <button type="button" class="popup__close"></button>
+    <h3 class="popup__title">Редактировать профиль</h3>
+    <form class="popup__form" name="editavatar" novalidate>
+      <input type="url" name="avatarlink" id="avatarlink" class="popup__input popup__input_type_url" placeholder="Ссылка на аватар" required>
+      <span class="popup__form-error avatarlink-error"></span> 
+      <button type="submit" class="button popup__button">Сохранить</button>
+    </form>
+  </div>
+</div>
 
 <template id="card-template">
   <li class="places__item card">
@@ -70,7 +85,10 @@
     <div class="card__description">
       <h2 class="card__title">
       </h2>
-      <button type="button" class="card__like-button"></button>
+      <div class="likes">
+        <button type="button" class="card__like-button"></button>
+        <span class="likes_count">0</span>
+      </div>
     </div>
   </li>
 </template>
