@@ -9,9 +9,38 @@
   margin: 0 29px 0 0;
 }
 
+.profile__image::after {
+  content: '';
+  width: 120px;
+  background-color: #000;
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  inset: 0;
+  opacity: 0%;
+}
+
+.profile_image::before {
+  content: '';
+  background-image: url('../../../images/edit-icon.svg');
+  width: 26px;
+  height: 26px;
+  background-position: center;
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+}
 
 .profile__image:hover {
   cursor: pointer;
+}
+
+.profile__image:hover::before {
+  opacity: 80%;
+}
+
+.profile__image:hover::after {
+  opacity: 80%;
 }
 
 @media screen and (max-width: 740px) {

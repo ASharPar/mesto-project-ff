@@ -26,7 +26,7 @@ const validationConfig = {
 };
 
 // редактирования профайла
-const editbutton = content.querySelector(".profile__edit-button");
+const editButton = content.querySelector(".profile__edit-button");
 const profileTitle = content.querySelector(".profile__title");
 const profileDescriptionText = content.querySelector(".profile__description");
 const editPopup = document.querySelector(".popup_type_edit");
@@ -37,7 +37,7 @@ const popupInputDescription = editPopup.querySelector(
   ".popup__input_type_description"
 );
 
-editbutton.addEventListener("click", function (evt) {
+editButton.addEventListener("click", function (evt) {
   popupInputName.value = profileTitle.textContent;
   popupInputDescription.value = profileDescriptionText.textContent;
 
