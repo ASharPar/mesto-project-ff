@@ -12,7 +12,7 @@ import {
 
 // Переменные
 const content = document.querySelector(".content");
-const placelist = content.querySelector(".places__list");
+const placeList = content.querySelector(".places__list");
 
 let profileID;
 
@@ -146,14 +146,14 @@ formPlace.addEventListener("submit", function (evt) {
   addAPICard(item, profileID)
     .then((data) => {
       const item = data;
-      const newcard = createCard(
+      const newCard = createCard(
         item,
         removeCard,
         placeLike,
         openImg,
         profileID
       );
-      placelist.prepend(newcard);
+      placeList.prepend(newCard);
       formPlace.reset();
       closePopup(addPopup);
     })
@@ -188,7 +188,7 @@ Promise.all([getInitialCards(), getProfile()])
     profileID = profile._id;
 
     cards.forEach(function (item) {
-      const newcard = createCard(
+      const newCard = createCard(
         item,
         removeCard,
         placeLike,
@@ -196,7 +196,7 @@ Promise.all([getInitialCards(), getProfile()])
         profileID
       );
 
-      placelist.append(newcard);
+      placeList.append(newCard);
     });
   })
   .catch((err) => {
