@@ -7,6 +7,7 @@
   background-size: cover;
   background-position: center;
   margin: 0 29px 0 0;
+  position: relative;
 }
 
 .profile__image::after {
@@ -20,15 +21,15 @@
   opacity: 0%;
 }
 
-.profile_image::before {
+.profile__image::before {
   content: '';
   background-image: url('../../../images/edit-icon.svg');
-  width: 26px;
-  height: 26px;
+  background-repeat: no-repeat;
+  background-size: 26px 26px;
   background-position: center;
   position: absolute;
   inset: 0;
-  z-index: 3;
+  opacity: 0;
 }
 
 .profile__image:hover {
@@ -36,7 +37,8 @@
 }
 
 .profile__image:hover::before {
-  opacity: 80%;
+  opacity: 100%;
+  z-index: 3;
 }
 
 .profile__image:hover::after {
