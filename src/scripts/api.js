@@ -55,14 +55,14 @@ export function deleteAPICard(cardID, card) {
   }).then(handleResponse);
 }
 
-export function LikeAPIPut(cardID) {
+export function likeAPIPut(cardID) {
   return fetch(`${config.baseUrl}/cards/likes/${cardID}`, {
     method: "PUT",
     headers: config.headers,
   }).then(handleResponse);
 }
 
-export function LikeAPIDelete(cardID) {
+export function likeAPIDelete(cardID) {
   return fetch(`${config.baseUrl}/cards/likes/${cardID}`, {
     method: "DELETE",
     headers: config.headers,

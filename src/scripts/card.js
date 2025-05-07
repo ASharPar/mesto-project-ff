@@ -1,4 +1,4 @@
-import { deleteAPICard, LikeAPIDelete, LikeAPIPut } from "./api.js";
+import { deleteAPICard, likeAPIDelete, likeAPIPut } from "./api.js";
 
 const cardTemplate = document.querySelector("#card-template").content;
 
@@ -65,7 +65,7 @@ export function removeCard(deleteButton, cardID) {
 // поставить лайк картинке
 export function placeLike(likeButton, cardID) {
   if (likeButton.classList.contains("card__like-button_is-active")) {
-    LikeAPIDelete(cardID)
+    likeAPIDelete(cardID)
       .then((likeDeleted) => {
         likeButton.closest(".card").querySelector(".likes_count").textContent =
           likeDeleted.likes.length;
@@ -75,7 +75,7 @@ export function placeLike(likeButton, cardID) {
         console.log(err); // выводим ошибку в консоль
       });
   } else {
-    LikeAPIPut(cardID)
+    likeAPIPut(cardID)
       .then((likeAdded) => {
         likeButton.closest(".card").querySelector(".likes_count").textContent =
           likeAdded.likes.length;
